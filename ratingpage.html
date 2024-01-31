@@ -1,0 +1,459 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Programming FeedBack Page</title>
+  <link rel="icon" type="image/x-icon" href="path_to_your_favicon.png">
+
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 10px;
+      background-color: #f4f4f4;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      /* Align vertically center */
+      align-items: center;
+      /* Align horizontally center */
+      min-height: 80vh;
+      /* Increased min-height */
+      min-width: 80vw;
+      /* Increased min-width */
+      animation: backgroundAnimation 10s infinite alternate;
+    }
+
+    @keyframes backgroundAnimation {
+      0% {
+        background-color: #f4f4f4;
+      }
+
+      100% {
+        background-color: #e6e6e6;
+      }
+    }
+
+    header {
+      background: linear-gradient(135deg, #009688, #00695c);
+      color: white;
+      text-align: center;
+      padding: 10px 0;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      width: 100%;
+    }
+
+    header h1,
+    footer p {
+      margin: 0;
+      padding: 5px;
+    }
+
+    .additional-info {
+      font-size: 12px;
+      opacity: 0.8;
+    }
+
+    footer {
+      background: linear-gradient(135deg, #009688, #00695c);
+      color: white;
+      text-align: center;
+      padding: 10px 0;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      position: fixed;
+      bottom: 0;
+      width: 100%;
+    }
+
+    footer p {
+      font-size: 14px;
+    }
+
+    .feedback-box {
+      background-color: white;
+      padding: 20px;
+      /* Increased padding */
+      margin: auto;
+      /* Centering the box */
+      border-radius: 8px;
+      box-shadow: 0 4px 8px rgba(0, 128, 128, 0.6);
+      /* Teal shadow */
+      text-align: center;
+      width: 80%;
+      /* Increased width */
+      max-width: 1000px;
+      /* Adjust max width as needed */
+    }
+
+    .star-rating label:hover,
+    .star-rating label:hover~label {
+      transform: scale(1.1);
+      transition: transform 0.2s;
+    }
+
+    .star-rating {
+      display: flex;
+      justify-content: center;
+      /* Center stars horizontally */
+      align-items: center;
+      /* Align stars vertically */
+      font-size: 30px;
+      margin-bottom: 5px;
+      padding-top: 0px;
+      /* Adjust space above stars */
+
+      margin-top: -50px;
+    }
+
+    .star-rating label {
+      display: inline-block;
+      position: relative;
+      cursor: pointer;
+      color: #ddd;
+      margin-right: 20px;
+      margin: 0 25px;
+      font-size: 50px;
+      /* Space between stars */
+    }
+
+    .star-rating label::after {
+      content: '★';
+      position: absolute;
+      left: 0;
+      transition: color 0.2s ease-in-out;
+    }
+
+    .star-rating input[type="radio"] {
+      display: none;
+    }
+
+    .star-rating input[type="radio"]:checked~label::after,
+    .star-rating label:hover~label::after,
+    .star-rating label:hover::after {
+      color: gold;
+    }
+
+    .question-box {
+      border: 2px solid teal;
+      border-radius: 8px;
+      padding: 15px;
+      margin: 20px 0;
+      text-align: center;
+      /* Center align text */
+    }
+
+    .question-box p {
+      margin: 10px 0;
+    }
+
+    .question-box label {
+      display: block;
+      margin-top: 10px;
+    }
+
+    .question-box input[type="radio"] {
+      display: none;
+    }
+
+    .question-box label {
+      display: inline-block;
+      margin-right: 10px;
+      padding: 5px 10px;
+      background-color: teal;
+      color: white;
+      border-radius: 4px;
+      cursor: pointer;
+      width: 60px;
+      /* Set the width as per your requirement */
+      text-align: center;
+      /* Center the text inside the label */
+    }
+
+    .question-box input[type="radio"]:checked+label {
+      background-color: #009688;
+      /* Active choice color */
+    }
+
+    .feedback-box textarea {
+      width: 100%;
+      padding: 10px;
+      margin: 80px 0;
+      border-radius: 4px;
+      border: 1px solid #ddd;
+      min-height: 100px;
+      resize: vertical;
+      display: none;
+    }
+
+    .feedback-box button {
+      background-color: grey;
+      /* Initially grey */
+      color: white;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+
+    .feedback-box button:hover {
+      background-color: #45a049;
+    }
+
+    button {
+      cursor: pointer;
+    }
+
+    button:hover {
+      background-color: #367c39;
+      transition: background-color 0.3s;
+    }
+
+    @media screen and (max-width: 600px) {
+      .feedback-box {
+        width: 95%;
+        margin: 20px;
+      }
+
+      header,
+      footer {
+        text-align: center;
+      }
+    }
+
+    .question-box:not(:first-child) {
+      display: none;
+    }
+
+    .comments-section {
+      margin-top: 20px;
+      /* Adjust the value as needed */
+    }
+
+    .footer-left {
+      flex: 1;
+      text-align: left;
+      padding-left: 20px;
+      /* Adjust as needed */
+    }
+
+    .footer-right {
+      flex: 1;
+      text-align: right;
+      padding-right: 20px;
+      /* Adjust as needed */
+    }
+
+    .footer-right a img {
+      height: 30px;
+      /* Adjust size as needed */
+      vertical-align: middle;
+    }
+    #submitFeedback {
+    background-color: grey;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    margin-top: 20px; /* Space above the button */
+    font-size: 18px; /* Increased font size */
+    width: 200px; /* Set a specific width, adjust as needed */
+    display: block; /* To apply width correctly */
+    margin-left: auto; /* Center align the button */
+    margin-right: auto;
+}
+
+#submitFeedback:disabled {
+    background-color: #ccc;
+    cursor: not-allowed;
+}
+
+#submitFeedback:hover:enabled {
+    background-color: #45a049; /* Change color on hover */
+}
+  </style>
+
+</head>
+
+<body>
+  <header>
+    <h1>Gammal Tech Exam</h1>
+    
+  </header>
+  <div id="progressBar" style="width: 100%; background-color: #ddd;">
+    <div id="progress" style="height: 5px; width: 0%; background-color: #4CAF50;"></div>
+  </div>
+  <div class="feedback-box">
+    <h2>Feedback on Online Exam</h2>
+
+    <!-- Only one question is displayed at a time -->
+    <div id="question1" class="question-box" style="display:block;">
+      <p>1. Rate the overall difficulty of the exam..</p>
+      <label><input type="radio" name="q1" value="1"> 1</label>
+      <label><input type="radio" name="q1" value="2"> 2</label>
+      <label><input type="radio" name="q1" value="3"> 3</label>
+      <label><input type="radio" name="q1" value="4"> 4</label>
+      <label><input type="radio" name="q1" value="5"> 5</label>
+    </div>
+
+    <!-- Add similar question divs for other questions -->
+    <div id="question2" class="question-box">
+      <p>2. How satisfied were you with the clarity of the exam instructions?</p>
+      <label><input type="radio" name="q2" value="1"> 1</label>
+      <label><input type="radio" name="q2" value="2"> 2</label>
+      <label><input type="radio" name="q2" value="3"> 3</label>
+      <label><input type="radio" name="q2" value="4"> 4</label>
+      <label><input type="radio" name="q2" value="5"> 5</label>
+    </div>
+    <div id="question3" class="question-box">
+      <p>3. Rate the fairness of the exam questions.</p>
+      <label><input type="radio" name="q3" value="1"> 1</label>
+      <label><input type="radio" name="q3" value="2"> 2</label>
+      <label><input type="radio" name="q3" value="3"> 3</label>
+      <label><input type="radio" name="q3" value="4"> 4</label>
+      <label><input type="radio" name="q3" value="5"> 5</label>
+    </div>
+    <div id="question4" class="question-box">
+      <p>4. How well did the exam align with the course materials and lectures?</p>
+      <label><input type="radio" name="q4" value="1"> 1</label>
+      <label><input type="radio" name="q4" value="2"> 2</label>
+      <label><input type="radio" name="q4" value="3"> 3</label>
+      <label><input type="radio" name="q4" value="4"> 4</label>
+      <label><input type="radio" name="q4" value="5"> 5</label>
+    </div>
+    <div id="question5" class="question-box">
+      <p>5. Rate the overall experience of taking the exam online.</p>
+      <label><input type="radio" name="q5" value="1" onclick="showStarRating()"> 1</label>
+      <label><input type="radio" name="q5" value="2" onclick="showStarRating()"> 2</label>
+      <label><input type="radio" name="q5" value="3" onclick="showStarRating()"> 3</label>
+      <label><input type="radio" name="q5" value="4" onclick="showStarRating()"> 4</label>
+      <label><input type="radio" name="q5" value="5" onclick="showStarRating()"> 5</label>
+    </div>
+    <div id="question6" class="shahd" style="display:none;">
+      <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Rate the exam:</p><br>
+      <div class="star-rating">
+        <input type="radio" id="star1" name="examRating" value="1"><label for="star1"></label>
+        <input type="radio" id="star2" name="examRating" value="2"><label for="star2"></label>
+        <input type="radio" id="star3" name="examRating" value="3"><label for="star3"></label>
+        <input type="radio" id="star4" name="examRating" value="4"><label for="star4"></label>
+        <input type="radio" id="star5" name="examRating" value="5"><label for="star5"></label><br>
+      </div><br><br>
+      <div class="comments-section">
+        <input type="checkbox" id="additionalCommentsCheck" onclick="toggleComments()">
+        <label for="additionalCommentsCheck">Do you have any other comments?</label>
+        <textarea id="additionalComments" placeholder="Your comments..." cols="3" rows="2"></textarea>
+      </div>
+    </div>
+  </div>
+  <button id="submitFeedback" type="button" onclick="submitFeedback()" >Submit & Result</button>
+  
+  <footer>
+    <div class="footer-left">
+      <p>Copyright © Gammal Tech. 2024</p>
+    </div>
+    <div class="footer-right">
+      <a href="C:\Users\Youssef Orabi\Desktop\day 4\facebook.png" target="_blank">
+        <img src="facebook.png" alt="Logo">
+      </a>&nbsp;
+      <a href="C:\Users\Youssef Orabi\Desktop\day 4\instagram-symbol.png">
+        <img src="instagram-symbol.png" alt="Logo">
+      </a>&nbsp;
+      <a href="C:\Users\Youssef Orabi\Desktop\day 4\twitter.png" target="_blank">
+        <img src="twitter.png" alt="Logo">
+      </a>
+    </div>
+  </footer>
+
+  <script>
+    let totalQuestions = 6;
+    let currentQuestion = 1;
+    let allQuestionsAnswered = false;
+    let starRated = false;
+
+    document.querySelectorAll('.feedback-box .question-box input[type="radio"]').forEach(function (radio) {
+      radio.addEventListener('change', function () {
+        if (currentQuestion < totalQuestions) {
+          document.getElementById('question' + currentQuestion).style.display = 'none';
+          currentQuestion++;
+          if (currentQuestion <= totalQuestions) {
+            document.getElementById('question' + currentQuestion).style.display = 'block';
+          }
+        }
+        checkCompletion();
+      });
+    });
+
+    function showStarRating() {
+      if (currentQuestion === 5) {
+        document.getElementById('question6').style.display = 'block';
+      }
+    }
+
+    document.querySelectorAll('.star-rating input[type="radio"]').forEach(function (star) {
+      star.addEventListener('change', function () {
+        starRated = true;
+        checkCompletion();
+      });
+    });
+
+    function checkCompletion() {
+      if (currentQuestion > 5 && !starRated) {
+        allQuestionsAnswered = Array.from(document.querySelectorAll('.feedback-box .question-box')).slice(0, -1).every(function (question) {
+          return question.querySelector('input[type="radio"]:checked');
+        });
+        if (allQuestionsAnswered) {
+          document.getElementById('question6').style.display = 'block';
+        }
+      }
+
+      if (currentQuestion === totalQuestions && starRated) {
+        allQuestionsAnswered = Array.from(document.querySelectorAll('.feedback-box .question-box')).every(function (question) {
+          return question.querySelector('input[type="radio"]:checked');
+        });
+      }
+
+      if (allQuestionsAnswered && starRated) {
+        document.getElementById('submitFeedback').style.backgroundColor = 'teal';
+      }
+    }
+
+    function submitFeedback() {
+      if (!allQuestionsAnswered || !starRated) {
+        alert('Please answer all questions and rate the exam.');
+        return;
+      }
+      alert('Feedback submitted successfully!');
+      // Add submission logic here
+    }
+
+    function toggleComments() {
+      var checkBox = document.getElementById("additionalCommentsCheck");
+      var comments = document.getElementById("additionalComments");
+      comments.style.display = checkBox.checked ? "block" : "none";
+    }
+    document.querySelectorAll('.feedback-box .question-box input[type="radio"]').forEach(function (radio) {
+      radio.addEventListener('change', function () {
+        // ... existing logic ...
+        updateProgressBar();
+      });
+    });
+
+    function updateProgressBar() {
+      var progressPercentage = (currentQuestion / totalQuestions) * 100;
+      document.getElementById('progress').style.width = progressPercentage + '%';
+    }
+
+    function submitFeedback() {
+      // ... existing logic ...
+      if (allQuestionsAnswered && starRated) {
+        // Feedback submission animation logic
+        document.getElementById('progress').style.width = '100%';
+        alert('Feedback submitted successfully!');
+      }
+    }
+  </script>
+</body>
+
+</html>
